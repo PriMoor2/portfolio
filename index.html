@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Priya Moorthy — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0a0e17; --surface: #111827; --card: #161f2e; --border: #1e2d45;
+      --accent: #38bdf8; --accent2: #818cf8; --green: #34d399;
+      --text: #e2e8f0; --muted: #64748b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 5vw; background: rgba(10,14,23,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .btn { padding: 0.55rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-primary { background: var(--accent); color: #0a0e17; }
+    .btn-primary:hover { background: #7dd3fc; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 5vw; position: relative; overflow: hidden; }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px); background-size: 40px 40px; }
+    .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 70%); top: 50%; left: 40%; transform: translate(-50%,-50%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--accent); padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .hero-tag::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); animation:blink 1.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    h1 { font-size: clamp(2rem,4vw,3rem); font-weight: 800; line-height: 1.1; margin-bottom: 0.6rem; }
+    h1 .grad { background: linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); margin-bottom: 1rem; font-weight: 500; }
+    .hero-desc { color: #94a3b8; max-width: 520px; margin-bottom: 2rem; font-size: 1rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-btns a { padding: 0.78rem 1.7rem; border-radius: 9px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
+    section { padding: 6rem 5vw; }
+    .slabel { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+    h2 { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 0.5rem; }
+    .sline { width: 48px; height: 3px; background: linear-gradient(90deg,var(--accent),var(--accent2)); border-radius: 2px; margin-bottom: 3rem; }
+    #about { background: var(--surface); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: #94a3b8; margin-bottom: 1rem; font-size: 0.98rem; }
+    .about-stats { display: flex; gap: 2.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .about-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; }
+    .about-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+    .ctag { display: inline-block; background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.2); color: var(--accent2); padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.73rem; font-weight: 600; margin: 0.2rem; }
+    #skills { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(270px,1fr)); gap: 1.4rem; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .sct { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+    .stags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .stag { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); padding: 0.33rem 0.75rem; border-radius: 6px; font-size: 0.79rem; font-weight: 500; }
+    #projects { background: var(--surface); }
+    .pgrid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 1.4rem; }
+    .pcard { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.7rem; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; }
+    .pcard:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .ptop { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.9rem; }
+    .picon { font-size: 1.9rem; }
+    .plinks { display: flex; gap: 0.45rem; }
+    .plink { background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--muted); padding: 0.28rem 0.65rem; border-radius: 6px; font-size: 0.73rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .plink:hover { color: var(--accent); border-color: var(--accent); }
+    .pcard h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .pcard p { color: #94a3b8; font-size: 0.88rem; flex: 1; margin-bottom: 1.1rem; }
+    .ptechs { display: flex; flex-wrap: wrap; gap: 0.38rem; }
+    .ptech { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.16); color: var(--accent); padding: 0.22rem 0.58rem; border-radius: 5px; font-size: 0.7rem; font-weight: 600; }
+    .pbadge { display: inline-block; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); padding: 0.18rem 0.58rem; border-radius: 5px; font-size: 0.68rem; font-weight: 700; margin-bottom: 0.7rem; }
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent); }
+    .titem { position: relative; margin-bottom: 2.4rem; }
+    .tdot { position:absolute; left:-2.38rem; top:0.4rem; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--bg); box-shadow:0 0 10px rgba(56,189,248,0.55); }
+    .tcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .thead { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.7rem; }
+    .trole { font-size: 1rem; font-weight: 700; }
+    .tco { color: var(--accent); font-weight: 600; font-size: 0.88rem; }
+    .tdate { background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--muted); padding:0.22rem 0.65rem; border-radius:6px; font-size:0.73rem; font-weight:600; white-space:nowrap; }
+    .tcard ul { color:#94a3b8; font-size:0.88rem; padding-left:1.1rem; }
+    .tcard li { margin-bottom:0.38rem; }
+    #contact { background: var(--surface); text-align: center; }
+    .cinner { max-width: 540px; margin: 0 auto; }
+    .cinner p { color: #94a3b8; margin-bottom: 2.4rem; font-size: 0.98rem; }
+    .clinks { display: flex; justify-content: center; gap: 0.9rem; flex-wrap: wrap; }
+    .clink { display:flex; align-items:center; gap:0.45rem; background:var(--card); border:1px solid var(--border); color:var(--text); padding:0.7rem 1.3rem; border-radius:10px; text-decoration:none; font-weight:600; font-size:0.88rem; transition:all 0.2s; }
+    .clink:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+    footer { background:var(--bg); border-top:1px solid var(--border); text-align:center; padding:2rem 5vw; color:var(--muted); font-size:0.83rem; }
+    @media(max-width:768px) { .about-grid { grid-template-columns:1fr; gap:2rem; } .nav-links { display:none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Priya Moorthy </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Open to Summer 2026 Internships</div>
+    <h1>Hi, I'm <br><span class="grad">Priya Moorthy</span></h1>
+    <p class="hero-sub">Computer Science Junior @ University of Michigan &nbsp;·&nbsp; AI/ML &amp; DSA Enthusiast</p>
+    <p class="hero-desc">I am passionate about AI/ML, Robotics, and Software Engineering. I enjoy tackling challenging 
+        problems, continuously learning and adapting to emerging technologies, and creating innovative solutions that have real-world impact. Always looking 
+        for opportunities to grow and apply my skills in meaningful ways.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View My Projects</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="slabel">Who I Am</div>
+  <h2>About Me</h2>
+  <div class="sline"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I am a junior majoring in Computer Science Engineering at University of Michigan. I am interested in <strong style="color:#7dd3fc">Artificial Intelligence &amp; Machine Learning</strong>, <strong style="color:#7dd3fc">Agentic Systems</strong>, <strong style="color:#7dd3fc">Robotics</strong>, <strong style="color:#7dd3fc">Full-stack Development</strong>, and <strong style="color:#7dd3fc">Algorithms &amp; Problem Solving</strong>. </p>
+      <p>Outside of my major, I enjoy reading books, biking, and mentoring younger students in robotics.</p>
+      <div class="about-stats">
+        <div><div class="stat-num">3.4</div><div class="stat-label">GPA</div></div>
+        <div><div class="stat-num">3</div><div class="stat-label">Competitions</div></div>
+      </div>
+    </div>
+    <div class="about-card">
+      <h3>🎓 Relevant Coursework</h3>
+      <span class="ctag">Data Structures &amp; Algorithms</span>
+      <span class="ctag">Machine Learning Research Experience</span>
+      <span class="ctag">Bayesian Methods for Machine Learning</span>
+      <span class="ctag">Introduction to Operating Systems</span>
+      <span class="ctag">Web Systems</span>
+      <span class="ctag">Computational Linguistics</span>
+      <span class="ctag">Electronic Circuits</span>
+      <span class="ctag">Digital Logic Design</span>
+      <span class="ctag">Computer Organization</span>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="slabel">What I Work With</div>
+  <h2>Skills</h2>
+  <div class="sline"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="sct">AI / ML</div>
+      <div class="stags">
+        <span class="stag">Python</span><span class="stag">PyTorch</span><span class="stag">Pandas</span><span class="stag">NumPy</span>
+        <span class="stag">Anthropic-Claude</span><span class="stag">Microsoft Azure</span>
+        <span class="stag">Matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sct">DSA &amp; Systems</div>
+      <div class="stags">
+        <span class="stag">C++</span><span class="stag">C</span><span class="stag">Java</span><span class="stag">Python</span><span class="stag">R</span><span class="stag">MATLAB</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sct">Web Development</div>
+      <div class="stags">
+        <span class="stag">JavaScript (React)</span><span class="stag">AWS</span><span class="stag">REST API</span>
+        <span class="stag">SQL</span><span class="stag">JSON</span><span class="stag">HTML</span><span class="stag">Postman</span>
+        <span class="stag">Swagger</span>
+    </div>
+    </div>
+    <div class="skill-card">
+      <div class="sct">Dev Tools</div>
+      <div class="stags">
+        <span class="stag">Git / GitHub / GitLab</span><span class="stag">VS Code</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="slabel">What I've Built</div>
+  <h2>Projects</h2>
+  <div class="sline"></div>
+  <div class="pgrid">
+    <div class="pcard">
+      <h3>Claude-based Multi-Agent Debate</h3>
+      <p>Implemented a Claude-based Multi-Agent Debate framework and assessed its effectiveness in improving outcomes on machine translation and counter-intuitive arithmetic reasoning tasks.</p>
+      <div class="ptechs"><span class="ptech">Python</span><span class="ptech">Claude</span></div>
+    </div>
+    <div class="pcard">
+      <h3>Aria AI</h3>
+      <p><span style="color:#7dd3fc">Ross Business + Tech: AI Hackathon 2026 - Top 5 Finalist</span></p>
+      <p>Designed and implemented proof-of-concept vision-enabled AI video annotation tool and integrated chat assistant for the university’s learning management system (LMS). </p>
+      <div class="ptechs"><span class="ptech">Claude</span>
+    </div></div>
+    <div class="pcard">
+      <h3>LuCelegans</h3>
+      <p> <span style="color:#7dd3fc">U of M Faculty Engineering/Arts Student Team</span></p>
+      <p>Developed C++ and Python programs to dynamically control neural circuit illumination in a 2-meter long interactive 3D model of Caenorhabditis Elegans (nematode worm), with lighting responses driven by simulated sensory inputs. </p>
+      <div class="ptechs"><span class="ptech">Python</span><span class="ptech">C++</span><span class="ptech">Arduino</span></div>
+    </div>
+    <div class="pcard">
+      <h3>Automated Rooftop Solar Awning System for RVs</h3>
+      <p> <span style="color:#818cf8">Perot Jain Tech Lab - Electrification Cohort </span></p>
+      <p>Designed a roof-top solar panel system that generates more than 1 kWh of power for personal & work RVs produced by an electric 
+        RV startup. Also, completed market and customer analysis & handled project management utilizing Agile/Scrum methodologies. </p>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="slabel">Where I've Worked</div>
+  <h2>Experience</h2>
+  <div class="sline"></div>
+  <div class="timeline">
+    <div class="titem">
+      <div class="tdot"></div>
+      <div class="tcard">
+        <div class="thead">
+          <div><div class="trole">Software Developer</div><div class="tco">Stryker IT - Multidisciplinary Design Program</div></div>
+          <span class="tdate"> Jan 2026 – Present</span>
+        </div>
+        <ul>
+          <li>Accelerate Stryker's Software Development Life Cycle (SDLC) process by designing and implementing a <span style="color: #7dd3fc;">Microsoft Azure-based multi-agent platform</span>, that sequentially converts user inputs into requirement artifacts, 
+creates codebase and repositories from the requirement artifacts, and generates testing documentation from the 
+codebase, achieving 70% draft completeness across the entire project lifecycle </li>
+        </ul>
+      </div>
+    </div>
+    <div class="titem">
+      <div class="tdot"></div>
+      <div class="tcard">
+        <div class="thead">
+          <div><div class="trole">EECS 280 Instructional Aide — Programming and Introductory Data Structures</div><div class="tco">University of Michigan</div></div>
+          <span class="tdate">Jan 2026 – Present</span>
+        </div>
+        <ul>
+          <li>Lead weekly lab sections for 30+ students covering C/C++ Fundamentals, Data Structures &amp; Algorithms, Object-Oriented Programming, Memory &amp; Resource Management, and I/O &amp; Error handling</li>
+          <li>Hold weekly office hours to clarify technical concepts and mentor students on project design and debugging</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cinner">
+    <h2>Let's Connect</h2>
+    <div class="sline" style="margin:0.5rem auto 1.5rem;"></div>
+    <p>I'm actively looking for Summer 2026 software engineering internships, especially in AI/ML. Whether you have an opportunity, a question, or just want to chat - feel free to reach out!</p>
+    <div class="clinks">
+      <a href="mailto:priyamvs@umich.edu" class="clink">Email Me</a>
+      <a href="https://www.linkedin.com/in/priyadharshini-moorthy-a43315288" target="_blank" rel="noopener noreferrer" class="clink">LinkedIn</a>
+      <a href="PM_resume.pdf" class="clink" target="_blank" rel="noopener noreferrer">Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed &amp; built by Priya Moorthy</p>
+</footer>
+
+</body>
+</html>
